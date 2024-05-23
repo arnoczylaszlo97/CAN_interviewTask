@@ -126,11 +126,10 @@ void SendPacket(canMsg *packet)
     // Implement packet sending logic
 }
 
-// 1s = 10000 ms
-// 10000 ms/100 ms = 10
+// 100 * x = 100.000 (x=1000)
 void Task100msec(void)
 {
-    if (timer1sec >= 10)
+    if (timer1sec >= 1000)
     {
         if (flgCoolTemp == 1 && flgEngineRun == 1)
         {
