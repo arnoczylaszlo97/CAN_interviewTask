@@ -132,15 +132,15 @@ void Task100msec(void)
 {
     if (timer1sec >= 10)
     {
-        if (!(flgCoolTemp == 1 || flgEngineRun == 1))
+        if (flgCoolTemp == 1 && flgEngineRun == 1)
+        {
+            printf("Error: Coolant temperature exceeds 100°C. Stopping queries.\n");
+        }
+        else
         {
             timer1sec = 0;
             canMsg packet = {0};
             SendPacket(&packet);
-        }
-        else if (flgCoolTemp == 1 && flgEngineRun == 1)
-        {
-            printf("Error: Coolant temperature exceeds 100°C. Stopping queries.\n");
         }
     }
     else
