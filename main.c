@@ -126,6 +126,8 @@ void SendPacket(canMsg *packet)
     // Implement packet sending logic
 }
 
+// 1s = 10000 ms
+// 10000 ms/100 ms = 10
 void Task100msec(void)
 {
     if (timer1sec >= 10)
