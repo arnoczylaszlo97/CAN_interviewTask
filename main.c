@@ -32,7 +32,8 @@
  * https://en.wikipedia.org/wiki/OBD-II_PIDs
  **/
 
-BYTE stopQuery = 0;
+BYTE flgEngineRun = 0;
+BYTE flgCoolTemp = 0;
 BYTE timer1sec = 0;
 
 typedef struct
@@ -80,7 +81,7 @@ void HandlePacket(canMsg *packet, U32 Id)
     {
         case vechicleSpeed:
         {
-            U16 vSpeed = ByteHextoDec(packet);
+            uint8_t vSpeed = ByteHextoDec(packet);
             printf("Vehicle Speed: %u [km/h] \n", vSpeed);
             break;
         }
@@ -88,6 +89,10 @@ void HandlePacket(canMsg *packet, U32 Id)
         {
             U32 eSpeed = ByteHextoDec(packet);
             printf("Engine Speed: %u [RPM] \n", eSpeed);
+            if (eSpeed > 0)
+            {
+                flgEngineRun = 1;
+            }
             break;
         }
         case engineCoolant:
@@ -96,8 +101,7 @@ void HandlePacket(canMsg *packet, U32 Id)
             printf("Coolant Temperature: %u [°C] \n", tCoolant);
             if (tCoolant >= 100)
             {
-                printf("Error: Coolant temperature exceeds 100°C. Stopping queries.\n");
-                stopQuery = 1;
+                flgCoolTemp = 1;
             }
             break;
         }
@@ -124,11 +128,18 @@ void SendPacket(canMsg *packet)
 
 void Task100msec(void)
 {
-    if (timer1sec >= 10 && stopQuery == 0)
+    if (timer1sec >= 10)
     {
-        timer1sec = 0;
-        canMsg packet = {0};
-        SendPacket(&packet);
+        if (!(flgCoolTemp == 1 || flgEngineRun == 1))
+        {
+            timer1sec = 0;
+            canMsg packet = {0};
+            SendPacket(&packet);
+        }
+        else if (flgCoolTemp == 1 && flgEngineRun == 1)
+        {
+            printf("Error: Coolant temperature exceeds 100°C. Stopping queries.\n");
+        }
     }
     else
     {
@@ -160,7 +171,7 @@ int main()
 
     packet.Data[0] = 0x03;
     packet.Data[1] = 0xff;
-    packet.DLC = 0x02;
+    packet.DLC = 0x01;
 
     printf("CAN message parameters:\n");
     printf("->Standard ID: %u\n", packet.StdId);
@@ -177,7 +188,8 @@ int main()
     printf("\n\n");
 
     PacketReceived(&packet);
-    printf("stopQuery flag : %u\n", stopQuery);
+    printf("flgEngineRun flag : %u\n", flgEngineRun);
+    printf("flgCoolTemp flag : %u\n", flgCoolTemp);
     return 0;
 }
 //-----------------------------------TESTING--------------------------------------
