@@ -1,1 +1,0 @@
-Mivel a Coolant temperature -40 és 215 között mozoghat, ezért a HandlePacket metódusban int16_t-ot adattípusban tárolnám, de mivel a canMsg sturctban BYTE a Data tömb adatípusa, ezért azt is módosítani kellne int16_t-re hogy negatív számot is lehessen benne tárolni.
