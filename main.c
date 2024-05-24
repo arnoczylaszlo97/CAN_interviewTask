@@ -121,11 +121,6 @@ void PacketReceived(canMsg *packet)
     }
 }
 
-void SendPacket(canMsg *packet)
-{
-    // Implement packet sending logic
-}
-
 // 100 * x = 100.000 (x=1000)
 void Task100msec(void)
 {
