@@ -93,6 +93,10 @@ void HandlePacket(canMsg *packet, U32 Id)
             {
                 flgEngineRun = 1;
             }
+            else
+            {
+                flgEngineRun = 0;
+            }
             break;
         }
         case engineCoolant:
@@ -102,6 +106,10 @@ void HandlePacket(canMsg *packet, U32 Id)
             if (tCoolant >= 100)
             {
                 flgCoolTemp = 1;
+            }
+            else
+            {
+                flgCoolTemp = 0;
             }
             break;
         }
