@@ -81,7 +81,7 @@ void HandlePacket(canMsg *packet, U32 Id)
     {
         case vechicleSpeed:
         {
-            uint8_t vSpeed = ByteHextoDec(packet);
+            BYTE vSpeed = ByteHextoDec(packet);
             printf("Vehicle Speed: %u [km/h] \n", vSpeed);
             break;
         }
