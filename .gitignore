@@ -10,3 +10,14 @@ CAN_task/Screenshots/CoolantUnderLimit__StdId.png
 CAN_task/Screenshots/DataTypes_question.png
 CAN_task/Screenshots/EngineSpeed_StdId.png
 CAN_task/Screenshots/VehicleSpeed_ExtId.png
+bin/Debug/CAN_task.exe
+CAN_task.cbp
+CAN_task.depend
+CAN_task.layout
+obj/Debug/main.o
+Screenshots/CoolantAboveLimit_StdId.png
+Screenshots/CoolantQuestion.txt
+Screenshots/CoolantUnderLimit__StdId.png
+Screenshots/DataTypes_question.png
+Screenshots/EngineSpeed_StdId.png
+Screenshots/VehicleSpeed_ExtId.png
