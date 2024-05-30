@@ -2,16 +2,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define BYTE unsigned char
-#define WORD unsigned short
-#define U16 unsigned short
-#define U32 unsigned int
-#define U64 unsigned long long
-
-#define vechicleSpeed 0x0D
-#define engineSpeed 0x0C
-#define engineCoolant 0x05
-
 /*
  * Irjon egy rovid programot, amely a jarmu szabvanyos OBD portjan keresztul lekerdezi masodpercenkent a motorfordulatszamot,
  * a jarmu sebesseget, es a hutokozeg homersekletet. Ha jaro motornal a homerseklet nagyobb mint 100C, hagyja abba a lekerdezest es irjon egy
@@ -31,6 +21,18 @@
  * Egy kis segitseg:
  * https://en.wikipedia.org/wiki/OBD-II_PIDs
  **/
+
+//-----------------------------------TESTING--------------------------------------
+
+#define BYTE unsigned char
+#define WORD unsigned short
+#define U16 unsigned short
+#define U32 unsigned int
+#define U64 unsigned long long
+
+#define vechicleSpeed 0x0D
+#define engineSpeed 0x0C
+#define engineCoolant 0x05
 
 BYTE flgEngineRun = 0;
 BYTE flgCoolTemp = 0;
@@ -156,8 +158,7 @@ int main()
     /*
     * Test Data:
     * 100 (dec) -> Bit 0 = 0x64 (hex)
-    * 1023(dec) -> 1111111111 (bin)-> Bit 0 = 0x03, Bit 1 = 0xff (hex)
-    * -40 -> -0x28
+    * 1023(dec) -> 0x3ff -> Bit 0 = 0x03, Bit 1 = 0xff (hex)
     * Vehicle speed    = 13 -> 0x0D
     * Engine Speed     = 12 -> 0x0C
     * Engine Coolant   = 5  -> 0x05
