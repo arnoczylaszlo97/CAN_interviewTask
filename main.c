@@ -167,7 +167,7 @@ int main()
     * Engine Speed     = 12 -> 0x0C
     * Engine Coolant   = 5  -> 0x05
     */
-
+    printf("Supposed CAN data : 1023(dec) -> 0x3ff(hex) -> Data[8] : Bit 0 = 0x03, Bit 1 = 0xff (hex) \n\n");
     canMsg packet;
 
     packet.StdId = 0x05;
@@ -180,7 +180,7 @@ int main()
 
     packet.Data[0] = 0x03;
     packet.Data[1] = 0xff;
-    packet.DLC = 0x01;
+    packet.DLC = 0x02;
 
     printf("CAN message parameters:\n");
     printf("->Standard ID: %u\n", packet.StdId);
@@ -188,7 +188,6 @@ int main()
     printf("->IDE: %u\n", packet.IDE);
     printf("->DLC: %u\n", packet.DLC);
     printf("->Data: ");
-    printf("\n");
 
     for (int i = 0; i < 8; i++)
     {
@@ -196,9 +195,10 @@ int main()
     }
     printf("\n\n");
 
+    printf("-> Decimal CAN Data: ");
     PacketReceived(&packet);
-    printf("flgEngineRun flag : %u\n", flgEngineRun);
-    printf("flgCoolTemp flag : %u\n", flgCoolTemp);
+    printf("-> flgEngineRun flag : %u\n", flgEngineRun);
+    printf("-> flgCoolTemp flag : %u\n", flgCoolTemp);
     return 0;
 }
 //-----------------------------------TESTING--------------------------------------
